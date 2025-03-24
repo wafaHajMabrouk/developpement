@@ -1,16 +1,25 @@
-import express from "express";
-import Employe from "../models/Employe.js";
-
+import Employe from "../models/Employe.js";  // Correction ici, l'export est "default"
+import express from 'express';
 const router = express.Router();
 
+// Route pour récupérer les employés
 router.get("/", async (req, res) => {
-  const employes = await Employe.findAll();
-  res.json(employes);
+  try {
+    const employes = await Employe.findAll();  // Utiliser "Employe" au lieu de "Employes"
+    res.json(employes);
+  } catch (error) {
+    res.status(500).json({ message: "Erreur lors de la récupération des employés" });
+  }
 });
 
-router.post("/", async (req, res) => {
-  const employe = await Employe.create(req.body);
-  res.json(employe);
+// Route pour créer un employé
+router.post("/", async (req, res) => {  // Modification de "/employes" à "/"
+  try {
+    const employe = await Employe.create(req.body);
+    res.status(201).json(employe);
+  } catch (error) {
+    res.status(500).json({ message: "Erreur lors de la création de l'employé" });
+  }
 });
 
 export default router;

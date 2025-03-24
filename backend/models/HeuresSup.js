@@ -1,14 +1,27 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../config/database.js";
-import Employe from "./Employe.js";
+import sequelize from '../config/database.js'; // Utiliser import par défaut
+import { DataTypes } from 'sequelize';
 
-const HeuresSup = sequelize.define("HeuresSup", {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  employe_id: { type: DataTypes.INTEGER, allowNull: false },
-  date: { type: DataTypes.DATEONLY, allowNull: false },
-  nb_heures: { type: DataTypes.FLOAT, allowNull: false }
+const HeuresSup = sequelize.define('HeuresSup', {
+  employe_id: {
+    type: DataTypes.INTEGER,
+    field: 'employe_id',
+  },
+  date: {
+    type: DataTypes.DATEONLY,
+    allowNull: false,
+  },
+  heures_travaillees: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  heures_supplementaires: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  remuneration_supplementaire: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+  },
 });
-
-HeuresSup.belongsTo(Employe, { foreignKey: "employe_id" });
 
 export default HeuresSup;

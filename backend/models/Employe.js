@@ -1,24 +1,21 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../config/database.js";
+import { DataTypes } from 'sequelize';
+import sequelize  from '../config/database.js';
 
-const Employe = sequelize.define("Employe", {
+export const Employes = sequelize.define('Employes', {
   id: {
     type: DataTypes.INTEGER,
-    autoIncrement: true,
     primaryKey: true,
+    autoIncrement: true
   },
   nom: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: false
   },
   poste: {
     type: DataTypes.STRING,
-    allowNull: false,
-  },
-  salaire: {
-    type: DataTypes.FLOAT,
-    allowNull: false,
+    allowNull: false
   }
+}, {
+  timestamps: false
 });
-
-export default Employe;
+export default Employes;
