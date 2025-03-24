@@ -1,22 +1,23 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                sh 'npm install'  // Pour le frontend (React)
-                sh 'cd backend && npm install'  // Pour le backend (Node.js)
+                git 'https://github.com/wafaHajMabrouk/developpement.git'
             }
         }
         stage('Test') {
             steps {
-                sh 'npm test'  // Exécute les tests unitaires (frontend)
-                sh 'cd backend && npm test'  // Tests backend
+                script {
+                    sh './mvnw clean test'
+                }
             }
         }
-        stage('Docker Build') {
+        stage('Build Docker Image') {
             steps {
-                sh 'docker build -t frontend-image ./frontend'
-                sh 'docker build -t backend-image ./backend'
+                script {
+                    sh 'docker build -t mon-image-backend .'
+                }
             }
         }
     }
